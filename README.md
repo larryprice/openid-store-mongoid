@@ -1,7 +1,7 @@
 #openid-store-mongoid
 
-Author: Larry Price ([larryprice.github.com](http://larryprice.github.com))
-Contact: larry.price.dev@gmail.com
+Author: Larry Price ([larryprice.github.com](http://larryprice.github.com))  
+Contact: larry.price.dev@gmail.com  
 Repository Location: https://github.com/larryprice/openid-store-mongoid
 
 ##Description
