@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
     "lib/openid/store/models/association.rb",
     "lib/openid/store/models/nonce.rb",
     "lib/openid/store/mongoid_store.rb",
+    "openid-store-mongoid.gemspec",
     "spec/openid-store-mongoid_spec.rb",
     "spec/spec_helper.rb"
   ]
