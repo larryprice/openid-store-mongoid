@@ -4,18 +4,26 @@ OpenID Store Using Mongoid. Concept originally discovered on [Alex Young's blog]
 
 ##Usage
 
-When creating an OpenID consumer:
+You may use either `require 'openid-store-mongoid'` or `require 'openid/store/mongoid_store'` to use this gem.
+
+To create an OpenID consumer:
 
 ``` ruby
 OpenID::Consumer.new(session, OpenID::Store::MongoidStore.new)
 ```
 
-With OmniAuth:
+To use with OmniAuth:
 
 ``` ruby
 use OmniAuth::Builder do
   provider :open_id, :store => OpenID::Store::MongoidStore.new
 end
+```
+
+You can cleanup any expired Nonce and Association documents from your database:
+
+``` ruby
+OpenID::Store::MongoidStore.cleanup
 ```
 
 ##Contributing to openid-store-mongoid
@@ -31,4 +39,3 @@ end
 ##Copyright
 
 Copyright (c) 2013 Larry Price. See LICENSE.txt for further details.
-

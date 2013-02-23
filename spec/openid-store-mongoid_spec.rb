@@ -153,6 +153,31 @@ module OpenID::Store
         @store.use_nonce(server_url, timestamp, salt).should be_true
       end
     end
+
+    describe '#cleanup' do
+      it 'cleans up any expried nonces and associations' do
+        now = Time.now
+        Time.should_receive(:now).exactly(2).and_return(now)
+        now_in_seconds = now.to_i
+
+        nonce_crit = double("Mongoid::Criteria")
+        nonce_crit.should_receive(:delete)
+
+        Nonce.should_receive(:any_of)
+             .with({:timestamp.gt => now_in_seconds + OpenID::Nonce.skew},
+                   {:timestamp.lt => now_in_seconds - OpenID::Nonce.skew})
+             .and_return(nonce_crit)
+
+        assn_crit = double("Mongoid::Criteria")
+        assn_crit.should_receive(:delete)
+
+        Association.should_receive(:for_js)
+                   .with("(this.issued + this.lifetime) > ti", ti: now_in_seconds)
+                   .and_return(assn_crit)
+
+        MongoidStore.cleanup
+      end
+    end
   end
 end
 

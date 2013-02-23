@@ -12,15 +12,6 @@ module OpenID::Store
       cleanup_associations
     end
 
-    def self.cleanup_nonces
-      now = Time.now.to_i
-      Nonce.any_of({:timestamp.gt => now + OpenID::Nonce.skew}, {:timestamp.lt => now - OpenID::Nonce.skew}).delete
-    end
-
-    def self.cleanup_associations
-      Association.for_js("(this.issued + this.lifetime) > ti", ti: Time.now.to_i).delete
-    end
-
     def get_association(server_url, handle = nil)
       assns = query_associations(server_url, handle)
 
@@ -76,7 +67,16 @@ module OpenID::Store
     end
 
     def delta_beyond_skew?(timestamp)
-      (timestamp - Time.now).to_i.abs > OpenID::Nonce.skew
+      (timestamp.to_i - Time.now.to_i).abs > OpenID::Nonce.skew
+    end
+
+    def self.cleanup_nonces
+      now = Time.now.to_i
+      Nonce.any_of({:timestamp.gt => now + OpenID::Nonce.skew}, {:timestamp.lt => now - OpenID::Nonce.skew}).delete
+    end
+
+    def self.cleanup_associations
+      Association.for_js("(this.issued + this.lifetime) > ti", ti: Time.now.to_i).delete
     end
   end
 end
