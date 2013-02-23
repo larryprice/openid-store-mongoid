@@ -10,7 +10,7 @@ OpenID Store using Mongoid. Concept originally from [Alex Young's blog](http://a
 
 ##Usage
 
-You may use either `require 'openid-store-mongoid'` or `require 'openid/store/mongoid_store'` to use this gem.
+You should use `require 'openid-store-mongoid'` to use this gem.
 
 To create an OpenID consumer:
 
