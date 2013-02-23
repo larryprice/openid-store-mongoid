@@ -1,6 +1,6 @@
-= temp
+= openid-store-mongoid
 
-Description goes here.
+OpenID Store Using Mongoid.
 
 == Contributing to temp
  

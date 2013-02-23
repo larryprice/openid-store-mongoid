@@ -14,11 +14,11 @@ require 'rake'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "temp"
-  gem.homepage = "http://github.com/larryprice/temp"
+  gem.name = "openid-store-mongoid"
+  gem.homepage = "http://github.com/larryprice/openid-store-mongoid"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{OpenID Store using Mongoid.}
+  gem.description = %Q{Use a Mongoid database to store OpenID consumer data.}
   gem.email = "larry.price.dev@gmail.com"
   gem.authors = ["Larry Price"]
   # dependencies defined in Gemfile
@@ -29,11 +29,6 @@ require 'rspec/core'
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec) do |spec|
   spec.pattern = FileList['spec/**/*_spec.rb']
-end
-
-RSpec::Core::RakeTask.new(:rcov) do |spec|
-  spec.pattern = 'spec/**/*_spec.rb'
-  spec.rcov = true
 end
 
 task :default => :spec
