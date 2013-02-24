@@ -38,6 +38,7 @@ GEM
     rspec-mocks (2.12.2)
     ruby-openid (2.2.3)
     tzinfo (0.3.35)
+    yard (0.8.4.1)
 
 PLATFORMS
   ruby
@@ -49,3 +50,4 @@ DEPENDENCIES
   rdoc (~> 3.12)
   rspec (~> 2.8)
   ruby-openid (~> 2.2.3)
+  yard (~> 0.8)

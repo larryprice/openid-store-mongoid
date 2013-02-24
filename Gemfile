@@ -8,6 +8,7 @@ gem 'ruby-openid', '~>2.2.3'
 group :development, :test do
   gem "rspec", "~> 2.8"
   gem "rdoc", "~> 3.12"
+  gem "yard", "~> 0.8"
   gem "bundler", "~> 1.0"
   gem "jeweler", "~> 1.8.4"
 end
