@@ -5,13 +5,22 @@ require 'moped/bson/binary'
 require 'openid/store/models/nonce'
 require 'openid/store/models/association'
 
+# Module OpenID::Store is used for all OpenID Store types. Also helps distinguishes
+# the Association/Nonce wrappers from OpenID::Association and OpenID::Nonce.
 module OpenID::Store
+  # OpenID Store class which uses Mongoid to store and access Association and Nonce data.
   class MongoidStore < OpenID::Store::Interface
+    # Cleans up any expired Nonce and Association data
+    # @note Not run as part of the normal process, must be run manually if desired.
     def self.cleanup
       cleanup_nonces
       cleanup_associations
     end
 
+    # Gets the Association for the given server url and handle.
+    # @param [String] server_url URL of the server making the request
+    # @param handle The handle associated with the Association
+    # @note Called internally by OpenID.
     def get_association(server_url, handle = nil)
       assns = query_associations(server_url, handle)
 
@@ -27,11 +36,13 @@ module OpenID::Store
       return nil
     end
 
+    # Stores an Association for the given server url and OpenID::Association.
+    # @param [String] server_url URL of the server making the request
+    # @param [OpenID::Association] assoc Object to use to create Association
+    # @note Called internally by OpenID.
     def store_association(server_url, assoc)
       remove_association(server_url, assoc.handle)
 
-      # BSON::Binary is used because secrets raise an exception
-      # due to character encoding
       Association.create(:server_url => server_url,
                          :handle     => assoc.handle,
                          :secret     => Moped::BSON::Binary.new(:generic, assoc.secret),
@@ -40,6 +51,11 @@ module OpenID::Store
                          :assoc_type => assoc.assoc_type)
     end
 
+    # Creates a Nonce for the given information.
+    # @param [String] server_url URL of the server making the request
+    # @param timestamp Time the Nonce was created.
+    # @param [String] salt Random string to uniquify Nonces. 
+    # @return True if the given nonce has not been created before and the timestamp is valid, False otherwise.
     def use_nonce(server_url, timestamp, salt)
       return false if any_nonces?(server_url, timestamp, salt) || delta_beyond_skew?(timestamp)
       Nonce.create(:server_url => server_url, :timestamp => timestamp, :salt => salt)
