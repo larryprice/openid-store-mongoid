@@ -76,7 +76,7 @@ module OpenID::Store
     end
 
     def self.cleanup_associations
-      Association.for_js("(this.issued + this.lifetime) > ti", ti: Time.now.to_i).delete
+      Association.for_js("(this.issued + this.lifetime) < ti", ti: Time.now.to_i).delete
     end
   end
 end
