@@ -1,3 +1,7 @@
+# ruby versioning
+.ruby-version
+.ruby-gemset
+
 # rcov generated
 coverage
 coverage.data
