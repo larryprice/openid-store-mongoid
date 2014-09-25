@@ -90,11 +90,11 @@ module OpenID::Store
         server_url = 'server/url'
 
         assn1 = double("Association")
-        assn1.should_receive(:destroy!).once
+        assn1.should_receive(:destroy).once
         assn2 = double("Association")
-        assn2.should_receive(:destroy!).never
+        assn2.should_receive(:destroy).never
         assn3 = double("Association")
-        assn3.should_receive(:destroy!).once
+        assn3.should_receive(:destroy).once
 
         openid_assn = OpenID::Association.new('/some/handle', 'secret', Time.now, 10, 'some/type')
 
@@ -172,12 +172,31 @@ module OpenID::Store
         assn_crit.should_receive(:delete)
 
         Association.should_receive(:for_js)
-                   .with("(this.issued + this.lifetime) > ti", ti: now_in_seconds)
+                   .with("(this.issued + this.lifetime) < ti", ti: now_in_seconds)
                    .and_return(assn_crit)
 
         MongoidStore.cleanup
       end
     end
+
+    describe '#remove_association' do
+      it "calls destroy on matching associations" do
+        server_url = 'server/url'
+        handle = "some/handle"
+
+        assn1 = double("Association")
+        assn1.should_receive(:destroy).once
+        assn2 = double("Association")
+        assn2.should_receive(:destroy).never
+        assn3 = double("Association")
+        assn3.should_receive(:destroy).once
+
+        Association.any_instance.should_receive(:destroy).never
+        Association.should_receive(:where).with({:server_url => server_url, :handle => handle})
+                                          .once.and_return([assn1, assn3])
+
+        @store.remove_association(server_url, handle)
+      end
+    end
   end
 end
-

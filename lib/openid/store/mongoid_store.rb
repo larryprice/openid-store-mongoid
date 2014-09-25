@@ -62,6 +62,12 @@ module OpenID::Store
       return true
     end
 
+    def remove_association(server_url, handle)
+      Association.where(:server_url => server_url, :handle => handle).each do |assoc|
+        assoc.destroy
+      end
+    end
+
     private
 
     def query_associations(server_url, handle)
@@ -69,12 +75,6 @@ module OpenID::Store
         Association.where(:server_url => server_url)
       else
         Association.where(:server_url => server_url, :handle => handle)
-      end
-    end
-
-    def remove_association(server_url, handle)
-      Association.where(:server_url => server_url, :handle => handle).each do |assoc|
-        assoc.destroy!
       end
     end
 

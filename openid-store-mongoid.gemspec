@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "openid-store-mongoid"
-  s.version = "0.1.1"
+  s.version = "0.1.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Larry Price"]
-  s.date = "2013-02-23"
+  s.date = "2013-02-27"
   s.description = "Use a Mongoid database to store OpenID consumer data."
   s.email = "larry.price.dev@gmail.com"
   s.extra_rdoc_files = [
@@ -46,14 +46,16 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<mongoid>, ["~> 3.1"])
       s.add_runtime_dependency(%q<ruby-openid>, ["~> 2.2.3"])
       s.add_development_dependency(%q<rspec>, ["~> 2.8"])
-      s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
+      s.add_development_dependency(%q<yard>, ["~> 0.8"])
+      s.add_development_dependency(%q<redcarpet>, ["~> 2.2"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.8.4"])
     else
       s.add_dependency(%q<mongoid>, ["~> 3.1"])
       s.add_dependency(%q<ruby-openid>, ["~> 2.2.3"])
       s.add_dependency(%q<rspec>, ["~> 2.8"])
-      s.add_dependency(%q<rdoc>, ["~> 3.12"])
+      s.add_dependency(%q<yard>, ["~> 0.8"])
+      s.add_dependency(%q<redcarpet>, ["~> 2.2"])
       s.add_dependency(%q<bundler>, ["~> 1.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
     end
@@ -61,7 +63,8 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<mongoid>, ["~> 3.1"])
     s.add_dependency(%q<ruby-openid>, ["~> 2.2.3"])
     s.add_dependency(%q<rspec>, ["~> 2.8"])
-    s.add_dependency(%q<rdoc>, ["~> 3.12"])
+    s.add_dependency(%q<yard>, ["~> 0.8"])
+    s.add_dependency(%q<redcarpet>, ["~> 2.2"])
     s.add_dependency(%q<bundler>, ["~> 1.0"])
     s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
   end
